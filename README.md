@@ -146,6 +146,7 @@ This section covers data configuration, model setup, training, and metric analys
    ![image](https://github.com/constantine1035/Agriculture_Coursework/blob/main/images/Picture4.png)
       _Figure 4. Key metrics_  
    4. **Detailed artifacts:** save and display F1 and precision–recall curves (e.g., `MaskF1_curve.png`, `MaskPR_curve.png`) and confusion matrices (`confusion_matrix.png`).
+   
          ![image](https://github.com/constantine1035/Agriculture_Coursework/blob/main/images/Picture5.png)
          ![image](https://github.com/constantine1035/Agriculture_Coursework/blob/main/images/Picture6.png)
          ![image](https://github.com/constantine1035/Agriculture_Coursework/blob/main/images/Picture7.png)
@@ -154,6 +155,7 @@ This section covers data configuration, model setup, training, and metric analys
          ![image](https://github.com/constantine1035/Agriculture_Coursework/blob/main/images/Picture10.png)
          ![image](https://github.com/constantine1035/Agriculture_Coursework/blob/main/images/Picture11.png)
          ![image](https://github.com/constantine1035/Agriculture_Coursework/blob/main/images/Picture12.png)
+      
       _Figures 5-12. Mask F1 and confusion matrix_  
       These visualizations reveal common class confusions and guide threshold selection.  
 
@@ -223,7 +225,8 @@ This subsection details the pipeline for segmentation_models_pytorch (SMP).
          ![image](https://github.com/constantine1035/Agriculture_Coursework/blob/main/images/Picture17.png)
    _Figures 13–17. Loss decrease per epoch for U-Net, U-Net++, FPN, DeepLabV3, DeepLabV3Plus_
 
-4. **Results analysis**  
+4. **Results analysis**
+
 | Model                                | val_seg_loss        | val_precision        | val_recall         | val_f1               |
 |--------------------------------------|---------------------|----------------------|--------------------|----------------------|
 | FPN_timm-efficientnet-b4             | 0.6122031562060120  | 0.5594803780066290   | 0.408288862865197  | 0.4454766556535360   |
@@ -274,7 +277,8 @@ To compare YOLO-seg and SMP models objectively, we built a script with these sta
    - `eval_smp_model`: loads each SMP checkpoint, predicts on validation, accumulates confusion matrix, returns metrics.  
    - `eval_yolo_model`: uses `ultralytics.YOLO.predict` to get binary masks, assigns class indices, crops to original size, updates confusion matrix.
 
-5. **Results summary:**  
+5. **Results summary:**
+
 | Model                               | mean_iou | mean_f1  | mean_precision | mean_recall |
 |-------------------------------------|----------|----------|----------------|-------------|
 | YOLOx                               | 0.332109 | 0.463627 | 0.488667       | 0.463709    |
