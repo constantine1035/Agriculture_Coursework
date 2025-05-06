@@ -243,7 +243,7 @@ This subsection details the pipeline for segmentation_models_pytorch (SMP).
 | DeepLabV3_timm-efficientnet-b4       | 0.8296669184193020  | 0.4031217705483470   | 0.2036448617064900 | 0.2207773370528010   |
 | DeepLabV3Plus_resnext101_32x8d       | 1.1896200051754700  | 0.2937001021619760   | 0.1351138160711800 | 0.1174290746501570   |
 
-   **Table 34.** Training results for various SMP models
+   **Table 1.** Training results for various SMP models
 
    **Conclusions:**  
    1. FPN with EfficientNet-B4 achieves the best precision-recall balance (F1 ≈ 0.4455), indicating strong multiscale feature aggregation.  
@@ -301,7 +301,7 @@ To compare YOLO-seg and SMP models objectively, we built a script with these sta
 | Unet_resnet101                      | 0.170558 | 0.233951 | 0.305766       | 0.240257    |
 | DeepLabV3Plus_resnext101_32x8d      | 0.095079 | 0.124385 | 0.325130       | 0.125463    |
 
-   **Table 35.** Models sorted by descending mean IoU
+   **Table 2.** Models sorted by descending mean IoU
 
    **Key findings:**  
    - **YOLOx** achieves the highest mean IoU (0.332), followed closely by **YOLOm** (0.324) and **FPN** (0.325).  
