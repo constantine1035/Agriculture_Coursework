@@ -1,5 +1,4 @@
-6.8 Segmentation on the Agriculture Vision Dataset  
-6.8.1 Dataset Preparation  
+# Segmentation on the Agriculture Vision Dataset  
 
 **Dataset structure:**  
 ```
@@ -59,7 +58,8 @@ train/
 3. **Class balancing and sample selection**  
    An initial metadata inspection revealed that the background and some anomalies (weed_cluster, double_plant) were tens of times more frequent than rare classes (storm_damage, planter_skip).
 
-   _Figure 86. Histogram of class distribution in train and validation before balancing_  
+![image](https://github.com/constantine1035/Agriculture_Coursework/blob/main/images/Picture1.png)
+   _Figure 1. Histogram of class distribution in train and validation before balancing_  
 
    To mitigate bias toward frequent classes, we applied:
    - **Metadata collection:** for each YOLO TXT file, record which classes appear.  
@@ -80,7 +80,8 @@ train/
    - Training: {0: 4691, 1: 4521, 2: 4384, 3: 4576, 4: 4285, 5: 934, 6: 2732, 7: 3337, 8: 8880}  
    - Validation: {0: 1045, 1: 1549, 2: 940, 3: 1026, 4: 1343, 5: 122, 6: 860, 7: 702, 8: 1248}  
 
-   _Figure 87. Histogram of class distribution in train and validation after balancing_  
+![image](https://github.com/constantine1035/Agriculture_Coursework/blob/main/images/Picture2.png)
+   _Figure 2. Histogram of class distribution in train and validation after balancing_  
 
 ---
 
@@ -138,14 +139,23 @@ This section covers data configuration, model setup, training, and metric analys
       - Losses: `train/box_loss`, `train/cls_loss`, `train/dfl_loss`, `train/seg_loss` and their validation counterparts  
       - Metrics: `metrics/precision(B)`, `metrics/recall(B)`, `metrics/mAP50(B)`, `metrics/mAP50-95(B)`  
       We loaded them into pandas DataFrames.  
-   2. **Loss curves:** on a 4 × 2 grid, plot training vs. validation for box loss, segmentation loss, classification loss, and distribution focal loss.  
-      _Figure 88. Loss functions_  
-   3. **Key metrics:** on a 2 × 2 grid, plot precision, recall, mAP@0.5, and mAP@0.5–0.95 over epochs for all five models.  
-      _Figure 89. Key metrics_  
-   4. **Detailed artifacts:** save and display F1 and precision–recall curves (e.g., `MaskF1_curve.png`, `MaskPR_curve.png`) and confusion matrices (`confusion_matrix.png`).  
-      _Figure 90. Mask F1 and confusion matrix_  
+   2. **Loss curves:** on a 4 × 2 grid, plot training vs. validation for box loss, segmentation loss, classification loss, and distribution focal loss.
+  ![image](https://github.com/constantine1035/Agriculture_Coursework/blob/main/images/Picture3.png)
+      _Figure 3. Loss functions_  
+   3. **Key metrics:** on a 2 × 2 grid, plot precision, recall, mAP@0.5, and mAP@0.5–0.95 over epochs for all five models.
+   ![image](https://github.com/constantine1035/Agriculture_Coursework/blob/main/images/Picture4.png)
+      _Figure 4. Key metrics_  
+   4. **Detailed artifacts:** save and display F1 and precision–recall curves (e.g., `MaskF1_curve.png`, `MaskPR_curve.png`) and confusion matrices (`confusion_matrix.png`).
+         ![image](https://github.com/constantine1035/Agriculture_Coursework/blob/main/images/Picture5.png)
+         ![image](https://github.com/constantine1035/Agriculture_Coursework/blob/main/images/Picture6.png)
+         ![image](https://github.com/constantine1035/Agriculture_Coursework/blob/main/images/Picture7.png)
+         ![image](https://github.com/constantine1035/Agriculture_Coursework/blob/main/images/Picture8.png)
+         ![image](https://github.com/constantine1035/Agriculture_Coursework/blob/main/images/Picture9.png)
+         ![image](https://github.com/constantine1035/Agriculture_Coursework/blob/main/images/Picture10.png)
+         ![image](https://github.com/constantine1035/Agriculture_Coursework/blob/main/images/Picture11.png)
+         ![image](https://github.com/constantine1035/Agriculture_Coursework/blob/main/images/Picture12.png)
+      _Figures 5-12. Mask F1 and confusion matrix_  
       These visualizations reveal common class confusions and guide threshold selection.  
-      _Figure 91. Mask F1 and confusion matrix_  
 
 5. **Key conclusions:**  
    - All models exhibit a sharp drop in box and segmentation losses during the first 5–10 epochs, then level off.  
@@ -203,11 +213,18 @@ This subsection details the pipeline for segmentation_models_pytorch (SMP).
         }
         ```
      3. Append metrics to `history` and save as `history_{model_name}.csv`.
+    
+     
 
-   _Figures 92–96. Loss decrease per epoch for U-Net, U-Net++, FPN, DeepLabV3, DeepLabV3Plus_
+         ![image](https://github.com/constantine1035/Agriculture_Coursework/blob/main/images/Picture13.png)
+         ![image](https://github.com/constantine1035/Agriculture_Coursework/blob/main/images/Picture14.png)
+         ![image](https://github.com/constantine1035/Agriculture_Coursework/blob/main/images/Picture15.png)
+         ![image](https://github.com/constantine1035/Agriculture_Coursework/blob/main/images/Picture16.png)
+         ![image](https://github.com/constantine1035/Agriculture_Coursework/blob/main/images/Picture17.png)
+   _Figures 13–17. Loss decrease per epoch for U-Net, U-Net++, FPN, DeepLabV3, DeepLabV3Plus_
 
 4. **Results analysis**  
-   | Model                                | val_seg_loss        | val_precision        | val_recall         | val_f1               |
+| Model                                | val_seg_loss        | val_precision        | val_recall         | val_f1               |
 |--------------------------------------|---------------------|----------------------|--------------------|----------------------|
 | FPN_timm-efficientnet-b4             | 0.6122031562060120  | 0.5594803780066290   | 0.408288862865197  | 0.4454766556535360   |
 | DeepLabV3_resnet34                   | 0.6270773340940480  | 0.5288257867030410   | 0.3811813832352850 | 0.4104384411469280   |
@@ -258,7 +275,7 @@ To compare YOLO-seg and SMP models objectively, we built a script with these sta
    - `eval_yolo_model`: uses `ultralytics.YOLO.predict` to get binary masks, assigns class indices, crops to original size, updates confusion matrix.
 
 5. **Results summary:**  
-   | Model                               | mean_iou | mean_f1  | mean_precision | mean_recall |
+| Model                               | mean_iou | mean_f1  | mean_precision | mean_recall |
 |-------------------------------------|----------|----------|----------------|-------------|
 | YOLOx                               | 0.332109 | 0.463627 | 0.488667       | 0.463709    |
 | FPN_timm-efficientnet-b4.pth        | 0.325045 | 0.445198 | 0.542821       | 0.411758    |
